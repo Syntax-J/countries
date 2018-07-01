@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="./dist/css/swiper.min.css">
+    <meta charset="utf-8">
+    <title>swiper</title>
+    <style media="screen">
+      html,body{
+        height: 100%;
+
+      }
+      *{
+        margin: 0;
+        padding: 0;
+      }
+      .swiper-container{
+        height: 100%;
+        width: 100%;
+      }
+      .content_box{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .content_main{
+        background-color: white;
+        height: 75%;
+        width: 100%;
+        display: flex;
+        justify-content:space-around;
+        align-items: center;
+      }
+      .content_img{
+        position: relative;
+        right:8%;
+        display: inline-block;
+        height: auto;
+        max-width: 50%;
+        box-shadow: 20px 15px 10px rgba(0, 0, 0, 0.8);
+      }
+      .content_div{
+        text-align:justify;
+        line-height:2;
+        max-height: 100%;
+        flex:0.4;
+      }
+      .content_div h1{
+        margin-bottom: 20px;
+      }
+      .content_title{
+      }
+    </style>
+  </head>
+  <body>
+    <div class="swiper-container" id="app">
+      <div class="swiper-wrapper">
+
+        <swiper-slide class="swiper-slide"
+        v-for='items in contents'
+        v-bind:key="contents.id"
+        v-bind:contents='items'
+        ></swiper-slide>
+      </div>
+    </div>
+  <script src="./dist/js/swiper.min.js"></script>
+  <script src="./dist/js/vue.js"></script>
+  <script type="text/javascript">
+  Vue.component('swiper-slide',{
+    props:['contents'],
+    template:
+    `<div v-bind:style=styleObject class='content_box'>
+      <div class='content_main'>
+      <div class='content_div'>
+      <h1>{{contents.title}}</h1>
+      <p>{{contents.content}}</p>
+      </div>
+      <img class='content_img' v-bind:src=contents.imgPath>
+      </div>
+    </div>`,
+    data:function(){
+      let temp_1={background:'rgba(106, 186, 180,1)'};
+      let temp_2={background:'rgba(165, 221, 216,1)'};
+      let temp={};
+      (this.contents.id%2==0)?temp=temp_2:temp=temp_1;
+      return {
+        styleObject:temp
+      }
+    }
+  })
+  var app=new Vue({
+    el:'#app',
+    data:{
+      contents:[
+        {
+          id:1,
+          title:'Canada',
+          imgPath:'./dist/images/a.jpg',
+          content:`is a country located in the northern part of North America. Its ten provinces and three territories extend from the Atlantic to the Pacific and northward into the Arctic Ocean,covering 9.98 million square kilometres (3.85 million square miles),making it the world's second largest country by total area.`
+        },
+        {
+          id:2,
+          title:'America',
+          imgPath:'./dist/images/b.jpg',
+          content:`is a federal republic composed of 50 states, a federal district, five major self-governing territories, and various possessions.[fn 6] At 3.8 million square miles (9.8 million km2) and with over 325 million people, the United States is the world's third- or fourth-largest country by total area[fn 7] and the third-most populous country.`
+        },
+        {
+          id:3,
+          title:'Sweden',
+          imgPath:'./dist/images/c.jpg',
+          content:`is a Scandinavian country in Northern Europe. It borders Norway to the west and north and Finland to the east, and is connected to Denmark in the southwest by a bridge-tunnel across the Öresund. At 450,295 square kilometres (173,860 sq mi), Sweden is the third-largest country in the European Union by area.`
+        },
+      ]
+    },
+    methods:{
+    }
+  })
+  var mySwiper = new Swiper('.swiper-container', {
+	autoplay: false,
+  })
+  </script>
+  </body>
+</html>
